@@ -2,7 +2,7 @@ import { Calendar } from 'react-big-calendar';
 
 import { addHours } from 'date-fns';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { CalendarEvent, Navbar } from "../"
+import { CalendarEvent, CalendarModal, Navbar } from "../"
 import { getMessagesES, localizer } from '../../helpers';
 import { useState } from 'react';
 
@@ -67,7 +67,7 @@ export const Calendarpage = () => {
                 onSelectEvent={onSelect}
                 onView={onViewChanged}
             />
-
+                <CalendarModal/>
         </>
     )
 }
