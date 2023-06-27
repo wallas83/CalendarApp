@@ -2,26 +2,33 @@ import { Calendar } from 'react-big-calendar';
 
 import { addHours } from 'date-fns';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { CalendarEvent, CalendarModal, Navbar } from "../"
+import { CalendarEvent, CalendarModal, FabAddNew, FabDelete, Navbar } from "../"
 import { getMessagesES, localizer } from '../../helpers';
 import { useState } from 'react';
+import { useUiStore } from '../../hooks/useUiStore';
+import { useCalendarStore } from '../../hooks';
+
 
 
 
 
 export const Calendarpage = () => {
+
+    const { openDateModal} = useUiStore();
+    const { events, setActiveEvent, activeEvent} = useCalendarStore()
     const [lastView, setLastView] = useState(localStorage.getItem('lastview') || 'week')
-    const events = [{
-        title: 'jefe cumpleanios',
-        notes: 'Hay que comprar pastel',
-        start: new Date(),
-        end: addHours(new Date(), 2),
-        bgColor: '#fafafa',
-        user: {
-            _id: '123',
-            name: 'Fernando'
-        }
-    }]
+    // const events = [
+    //     {
+    //     title: 'jefe cumpleanios',
+    //     notes: 'Hay que comprar pastel',
+    //     start: new Date(),
+    //     end: addHours(new Date(), 2),
+    //     bgColor: '#fafafa',
+    //     user: {
+    //         _id: '123',
+    //         name: 'Fernando'
+    //     }
+    // }]
     
     const eventStyleGetter = (event, start, end, isSelected) => {
         const style = {
@@ -36,10 +43,14 @@ export const Calendarpage = () => {
         }
     }
     const onDoubleClick = (event) => {
-    
+    // console.log(' doble click');
+    openDateModal();
     }
     const onSelect = (event) => {
-    
+         setActiveEvent( event )
+        console.log('un solo click?');
+        console.log(activeEvent);
+       
     }
     
     const onViewChanged = (event) => {
@@ -68,6 +79,11 @@ export const Calendarpage = () => {
                 onView={onViewChanged}
             />
                 <CalendarModal/>
+                <FabAddNew/>
+
+               
+            <FabDelete/>
+               
         </>
     )
 }
